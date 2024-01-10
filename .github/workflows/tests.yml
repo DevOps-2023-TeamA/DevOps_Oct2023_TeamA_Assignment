@@ -21,23 +21,31 @@ jobs:
           - ${{ github.workspace }}:/github/workspace
 
     steps:
+      - name: Set up directories
+        run: |
+          mkdir tests
+          mkdir sources
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          path: sources
       - name: Retrieve tests
         run: |
-          git clone https://github.com/DevOps-2023-TeamA/tsao-tests.git test_files
-          cp -r test_files/frontend/* ${{ github.workspace }}
+          git clone https://github.com/DevOps-2023-TeamA/tsao-tests.git tests/alltests
+          cp -r tests/alltests/frontend/* tests
         working-directory: ${{ github.workspace }}
       - name: Set up Docker Compose
         run: |
-          docker-compose -f docker-compose.yml up -d
+          docker-compose -f tests/docker-compose.yml up -d
           sleep 10
         working-directory: ${{ github.workspace }}
       - name: Deploy site on localhost
         run: |
+          cd sources
           python -m http.server 8080 &
           
           sleep 5
+        working-directory: ${{ github.workspace }}
       - name: Install Robot Framework and SeleniumLibrary
         run: |
           pip install robotframework
@@ -46,10 +54,10 @@ jobs:
 
       - name: Run Robot Framework Tests
         run: |
-          robot test.robot
+          robot tests/test.robot
         working-directory: ${{ github.workspace }}
 
       - name: Tear down Selenium Grid
         run: |
-          docker-compose -f docker-compose.yml down
+          docker-compose -f tests/docker-compose.yml down
         working-directory: ${{ github.workspace }}
