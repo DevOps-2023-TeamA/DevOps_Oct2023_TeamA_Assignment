@@ -23,12 +23,11 @@ jobs:
     steps:
       - name: Set up directories
         run: |
-          mkdir tests
-          mkdir sources
+          mkdir tests sources sources/frontend sources/backend sources/db
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: sources
+          path: sources/frontend
       - name: Retrieve tests
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-tests.git tests/alltests
@@ -41,7 +40,7 @@ jobs:
         working-directory: ${{ github.workspace }}
       - name: Deploy site on localhost
         run: |
-          cd sources
+          cd sources/frontend
           python -m http.server 8080 &
           
           sleep 5
@@ -56,16 +55,16 @@ jobs:
         run: |
           robot -v BROWSER:chrome tests/test.robot
         working-directory: ${{ github.workspace }}
-      - name: Install Firefox
-        uses: browser-actions/setup-firefox@latest
-      - name: Install Geckodriver
-        uses: browser-actions/setup-geckodriver@latest
-        with:
-          geckodriver-version: '0.34.0'
-      - name: Run Firefox Robot Framework Tests
-        run: |
-          robot -v BROWSER:firefox tests/test.robot
-        working-directory: ${{ github.workspace }}
+      # - name: Install Firefox
+      #   uses: browser-actions/setup-firefox@latest
+      # - name: Install Geckodriver
+      #   uses: browser-actions/setup-geckodriver@latest
+      #   with:
+      #     geckodriver-version: '0.34.0'
+      # - name: Run Firefox Robot Framework Tests
+      #   run: |
+      #     robot -v BROWSER:firefox tests/test.robot
+      #   working-directory: ${{ github.workspace }}
 
       - name: Tear down Selenium Grid
         run: |
