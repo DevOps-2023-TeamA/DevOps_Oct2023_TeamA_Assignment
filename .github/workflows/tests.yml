@@ -19,7 +19,6 @@ jobs:
           DOCKER_COMPOSE_VERSION: 1.29.2
         volumes:
           - ${{ github.workspace }}:/github/workspace
-        container_name: selenium
 
     steps:
       - name: Checkout code
