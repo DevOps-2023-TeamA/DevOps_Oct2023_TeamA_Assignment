@@ -2,8 +2,10 @@ name: Software Composition Analysis Scanning
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
   osv_scanner:
     runs-on: ubuntu-latest
