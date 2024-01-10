@@ -56,7 +56,13 @@ jobs:
         run: |
           robot -v BROWSER:chrome tests/test.robot
         working-directory: ${{ github.workspace }}
+      - name: Install Firefox
+        uses: browser-actions/setup-firefox@latest
 
+      - name: Install Geckodriver
+        uses: browser-actions/setup-geckodriver@v2
+        with:
+          geckodriver-version: '0.34.0'
       - name: Run Firefox Robot Framework Tests
         run: |
           sudo rm /usr/bin/geckodriver
