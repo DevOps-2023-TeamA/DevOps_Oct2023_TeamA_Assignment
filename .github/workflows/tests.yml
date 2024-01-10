@@ -33,10 +33,6 @@ jobs:
           docker-compose -f docker-compose.yml up -d
           sleep 10
         working-directory: ${{ github.workspace }}
-      - name: Install HTTP server
-        run: |
-          pip install http.server
-          npm install -g local-web-server
       - name: Deploy site on localhost
         run: |
           python -m http.server 8080
