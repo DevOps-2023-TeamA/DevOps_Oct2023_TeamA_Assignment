@@ -12,50 +12,50 @@ jobs:
       - name: Set up directories
         run: |
           mkdir tests sources sources/frontend sources/backend sources/db
-      - name: \[Backend\] Checkout code
+      - name: "[Backend] Checkout code"
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-backend-svc.git sources/backend
         working-directory: ${{ github.workspace }}
-      - name: Setup Go environment
+      - name: "[Backend] Setup Go environment"
         uses: actions/setup-go@v5.0.0
-      - name: \[Backend\] Deploy Auth Microservice
+      - name: "[Backend] Deploy Auth Microservice"
         run: |
           cd sources/backend
           go run microservices/auth/auth.go &
         working-directory: ${{ github.workspace }}
-      - name: \[Backend\] Deploy Users Microservice
+      - name: "[Backend] Deploy Users Microservice"
         run: |
           cd sources/backend
           go run microservices/users/users.go &
         working-directory: ${{ github.workspace }}
-      - name: \[Backend\] Deploy Records Microservice
+      - name: "[Backend] Deploy Records Microservice"
         run: |
           cd sources/backend
           go run microservices/records/records.go &
         working-directory: ${{ github.workspace }}
-      - name: \[Frontend\] Checkout code
+      - name: "[Frontend] Checkout code"
         uses: actions/checkout@v2
         with:
           path: sources/frontend
-      - name: \[Frontend\] Deploy site on localhost
+      - name: "[Frontend] Deploy site on localhost"
         run: |
           cd sources/frontend
           python -m http.server 8080 &
           
           sleep 5
         working-directory: ${{ github.workspace }}
-      - name: Retrieve tests
+      - name: "[Testing] Retrieve tests"
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-tests.git tests/alltests
           cp -r tests/alltests/frontend/* tests
         working-directory: ${{ github.workspace }}
-      - name: Install Robot Framework and SeleniumLibrary
+      - name: "[Testing] Install Robot Framework and SeleniumLibrary"
         run: |
           pip install robotframework
           pip install robotframework-seleniumlibrary
         working-directory: ${{ github.workspace }}
 
-      - name: Run Chrome Robot Framework Tests
+      - name: "[Testing] Run Chrome Robot Framework Tests"
         run: |
           robot -v BROWSER:chrome tests/test.robot
         working-directory: ${{ github.workspace }}
