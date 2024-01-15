@@ -26,6 +26,8 @@ jobs:
           mysql database: user
           mysql user: user 
           mysql password: root
+      - name: "[Database] Wait for MySQL"
+        run: sleep 10
       - name: "[Database] Create Tables"
         run: |
           mysql -h 127.0.0.1 -P 3306 -u user -proot user < sources/db/create_table.sql
