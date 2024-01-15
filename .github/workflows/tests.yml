@@ -2,7 +2,7 @@ name: Robot Framework Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "actions/**" ]
   pull_request:
     branches: [ "main" ]
 
@@ -13,6 +13,19 @@ jobs:
       - name: Set up directories
         run: |
           mkdir tests sources sources/frontend sources/backend sources/db
+      - name: "[Database] Checkout code"
+        run: |
+          git clone https://github.com/DevOps-2023-TeamA/tsao-db.git sources/db
+        working-directory: ${{ github.workspace }}
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql root password: root
+          mysql database: user
+          mysql user: user 
+          mysql password: root
       - name: "[Backend] Checkout code"
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-backend-svc.git sources/backend
