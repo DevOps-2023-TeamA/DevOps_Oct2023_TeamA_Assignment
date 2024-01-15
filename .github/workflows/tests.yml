@@ -26,6 +26,12 @@ jobs:
           mysql database: user
           mysql user: user 
           mysql password: root
+      - name: "[Database] Create Tables"
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u user -proot user < sources/db/create_table.sql
+      - name: "[Database] Insert Sample Data"
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u user -proot user < sources/db/insert_data.sql
       - name: "[Backend] Checkout code"
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-backend-svc.git sources/backend
