@@ -30,10 +30,10 @@ jobs:
         run: sleep 10
       - name: "[Database] Create Tables"
         run: |
-          mysql -h 127.0.0.1 -P 3306 --user=user -password=root < sources/db/create_table.sql
+          mysql -P 3306 --user=user -password=root < sources/db/create_table.sql
       - name: "[Database] Insert Sample Data"
         run: |
-          mysql -h 127.0.0.1 -P 3306 --user=user -password=root < sources/db/insert_data.sql
+          mysql -P 3306 --user=user -password=root < sources/db/insert_data.sql
       - name: "[Backend] Checkout code"
         run: |
           git clone https://github.com/DevOps-2023-TeamA/tsao-backend-svc.git sources/backend
