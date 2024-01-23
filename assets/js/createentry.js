@@ -38,10 +38,17 @@ async function CreateRecord(record) {
 
     const data = await response.json();
 
-    // Inform user of success
-    alert("Your Capstone entry has been successfully created.\nYou will be redirected back to the main page.")
-    // Redirect to home page after creation
-    window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE NOT THE LOGIN PAGE AFTER THE HOME PAGE IS DONE
+    // Check response status from API
+    if (response.ok) {
+      // Inform user and redirect to main page
+      alert("Your Capstone entry has been successfully created.\nYou will be redirected back to the main page.")
+      window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
+    }
+    else {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+
   }
   catch (error) {
     console.error("Error creating data:", error);
@@ -106,10 +113,8 @@ async function CreateRecord(record) {
 
             // Check if the username entered matches an active account
             if (newRecord.AccountID) {
-              // Call the function to create the record
               CreateRecord(newRecord);
             } else {
-              // Stop further actions e.g. submitting of form
               event.stopPropagation();
               // Inform the user of error
               alert(
