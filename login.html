@@ -52,11 +52,11 @@
                                                     <div class="flex-grow-1">
                                                         <label class="form-label">Password</label>
                                                     </div>
-                                                    <div class="flex-shrink-0">
+                                                    <!-- <div class="flex-shrink-0">
                                                         <div class="">
                                                             <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 
                                                 <div class="input-group auth-pass-inputgroup">
@@ -65,18 +65,26 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-xxl-6 col-lg-6 col-md-6">
-                                                    <button id="loginButton" class="btn btn-primary w-100 waves-effect waves-light" type="submit">Login</button>
+                                                <div class="col-xxl-6 col-lg-6 col-md-6 col-6">
+                                                    <button id="loginButton" class="btn btn-primary w-100 waves-effect waves-light" type="submit">
+                                                        <i class="mdi mdi-login"></i> Login
+                                                    </button>
                                                 </div>
-                                                <div class="col-xxl-6 col-lg-6 col-md-6">
-                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Create new user</button>
+                                                <div class="col-xxl-6 col-lg-6 col-md-6 col-6">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">
+                                                        <i class="mdi mdi-account-plus-outline"></i> Create new user
+                                                    </button>
                                                 </div>
                                             </div>
+                                            <div class="mb-3">
+                                                <p class="text-danger" id="error-message"></p>
+                                            </div>
+
                                         </form>
-                                        <div class="mt-5 text-center">
+                                        <!-- <div class="mt-5 text-center">
                                             <p class="text-muted mb-0">Don't have an account ? <a href="register.html"
                                                     class="text-primary fw-semibold"> Sign up now </a> </p>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="mt-4 mt-md-5 text-center">
                                         <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> DevOps-2023-TeamA</p>
@@ -107,7 +115,5 @@
         <!-- password addon init -->
         <script src="assets/js/pages/pass-addon.init.js"></script>
         <script src="./js/login.js"></script>
-
     </body>
-
 </html>
