@@ -16,20 +16,24 @@ async function GetAccount(selectedUsername) {
     const accountId = selectedAccount ? selectedAccount.ID : null;
 
     if (!accountId) {
-      return null;
+      return -1;
     }
 
     return accountId;
   }
   catch (error) {
     console.error("Error getting data:", error);
+    if (error == "TypeError: Failed to fetch") {
+      alert("Server Error. Try again.");
+    }
+    return null;
   }
 }
 
 // Function to call api and create new record
 async function CreateRecord(record) {
   try {
-    console.log("String Cheese: ", JSON.stringify(record))
+    console.log("String: ", JSON.stringify(record))
     const response = await fetch(`${apiURL}8001/api/records`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -41,7 +45,7 @@ async function CreateRecord(record) {
     // Check response status from API
     if (response.ok) {
       // Inform user and redirect to main page
-      alert("Your Capstone entry has been successfully created.\nYou will be redirected back to the main page.")
+      alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
       window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
     }
     else {
@@ -85,36 +89,36 @@ async function CreateRecord(record) {
             // Get the AccountID of the user
             const accountID = await GetAccount(formData.get("name"))
 
-
-            // Get current date value in yyyy-MM-dd
-            const currentDate = new Date()
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth() + 1;
-            const day = currentDate.getDate();
-
-            // Format date into YYYY-MM-DD format
-            const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-
-            // Create a variable to store the form values
-            var newRecord = {
-              "AccountID": Number(accountID),
-              "ContactRole": formData.get("roleRadio"),
-              "StudentCount": Number(formData.get("noOfStudents")),
-              "AcadYear": formData.get("year"),
-              "Title": formData.get("title"),
-              "CompanyName": formData.get("company"),
-              "CompanyPOC": formData.get("companyPoc"),
-              "Description": formData.get("description"),
-              "CreationDate": new Date(formattedDate),
-              "IsDeleted": false,
-            }
-
-            console.log("DATA: ", newRecord);
-
             // Check if the username entered matches an active account
-            if (newRecord.AccountID) {
+            if (accountID) {
+              // Get current date value in yyyy-MM-dd
+              const currentDate = new Date()
+              const year = currentDate.getFullYear();
+              const month = currentDate.getMonth() + 1;
+              const day = currentDate.getDate();
+
+              // Format date into YYYY-MM-DD format
+              const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+              // Create a variable to store the form values
+              var newRecord = {
+                "AccountID": Number(accountID),
+                "ContactRole": formData.get("roleRadio"),
+                "StudentCount": Number(formData.get("noOfStudents")),
+                "AcadYear": formData.get("year"),
+                "Title": formData.get("title"),
+                "CompanyName": formData.get("company"),
+                "CompanyPOC": formData.get("companyPoc"),
+                "Description": formData.get("description"),
+                "CreationDate": new Date(formattedDate),
+                "IsDeleted": false,
+              }
+
+              console.log("DATA: ", newRecord);
+
               CreateRecord(newRecord);
-            } else {
+            }
+            else if (accountID == -1) {
               event.stopPropagation();
               // Inform the user of error
               alert(
