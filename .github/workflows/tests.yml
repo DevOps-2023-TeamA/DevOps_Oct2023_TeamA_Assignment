@@ -75,6 +75,7 @@ jobs:
         run: |
           pip install robotframework
           pip install robotframework-seleniumlibrary
+          pip install typing-extensions
         working-directory: ${{ github.workspace }}
 
       - name: "[Testing] Run Chrome Robot Framework Tests"
