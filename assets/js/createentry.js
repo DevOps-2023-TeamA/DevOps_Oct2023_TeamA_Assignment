@@ -1,5 +1,14 @@
 const apiURL = "http://localhost:";
 
+var cancelButton = document.getElementById("cancel");
+
+// Handle cancel of creation
+if (cancelButton) {
+  cancelButton.addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
+}
+
 // Function to get AccountID of entered username
 async function GetAccount(selectedUsername) {
   try {
@@ -51,8 +60,6 @@ async function CreateRecord(record) {
     else {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
-
-
   }
   catch (error) {
     console.error("Error creating data:", error);
@@ -68,7 +75,6 @@ async function CreateRecord(record) {
     function () {
       // Get the form element
       var entryForm = document.getElementById("create-entry");
-      var cancelButton = document.getElementById("cancel");
 
       if (entryForm) {
         entryForm.addEventListener(
@@ -128,13 +134,6 @@ async function CreateRecord(record) {
           },
           false
         );
-      }
-
-      // Handle cancel of creation
-      if (cancelButton) {
-        cancelButton.addEventListener("click", function () {
-          window.location.href = "index.html";
-        });
       }
     },
     false
