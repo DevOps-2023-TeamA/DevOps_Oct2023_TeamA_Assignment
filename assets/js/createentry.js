@@ -86,17 +86,16 @@ async function CreateRecord(record) {
             event.preventDefault();
             if (!entryForm.checkValidity()) {
               event.stopPropagation();
-              entryForm.classList.remove("was-validated");
+              entryForm.classList.add("was-validated");
             }
             else {
-              // Add attribute after validation
               entryForm.classList.add("was-validated");
 
               // Retrieve data from form
               const formData = new FormData(entryForm);
 
               // Get the AccountID of the user
-              const accountID = await GetAccount(formData.get("name"))
+              const accountID = 2//await GetAccount(formData.get("name"))
 
               // Check if the username entered matches an active account
               if (accountID) {
