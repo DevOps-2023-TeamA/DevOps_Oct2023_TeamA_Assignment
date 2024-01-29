@@ -62,7 +62,10 @@ async function CreateRecord(record) {
     }
   }
   catch (error) {
-    console.error("Error creating data:", error);
+    console.error("Error getting data:", error);
+    if (error == "TypeError: Failed to fetch") {
+      alert("Server Error. Try again.");
+    }
   }
 }
 
@@ -81,55 +84,56 @@ async function CreateRecord(record) {
           "submit",
           async function (event) {
             event.preventDefault();
-            // Prevent further action if any fields are invalid
             if (!entryForm.checkValidity()) {
-              // Stop further actions e.g. submitting of form
               event.stopPropagation();
+              entryForm.classList.remove("was-validated");
             }
-            // Add attribute after validation
-            entryForm.classList.add("was-validated");
+            else {
+              // Add attribute after validation
+              entryForm.classList.add("was-validated");
 
-            // Retrieve data from form
-            const formData = new FormData(entryForm);
+              // Retrieve data from form
+              const formData = new FormData(entryForm);
 
-            // Get the AccountID of the user
-            const accountID = await GetAccount(formData.get("name"))
+              // Get the AccountID of the user
+              const accountID = await GetAccount(formData.get("name"))
 
-            // Check if the username entered matches an active account
-            if (accountID) {
-              // Get current date value in yyyy-MM-dd
-              const currentDate = new Date()
-              const year = currentDate.getFullYear();
-              const month = currentDate.getMonth() + 1;
-              const day = currentDate.getDate();
+              // Check if the username entered matches an active account
+              if (accountID) {
+                // Get current date value in yyyy-MM-dd
+                const currentDate = new Date()
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth() + 1;
+                const day = currentDate.getDate();
 
-              // Format date into YYYY-MM-DD format
-              const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                // Format date into YYYY-MM-DD format
+                const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 
-              // Create a variable to store the form values
-              var newRecord = {
-                "AccountID": Number(accountID),
-                "ContactRole": formData.get("roleRadio"),
-                "StudentCount": Number(formData.get("noOfStudents")),
-                "AcadYear": formData.get("year"),
-                "Title": formData.get("title"),
-                "CompanyName": formData.get("company"),
-                "CompanyPOC": formData.get("companyPoc"),
-                "Description": formData.get("description"),
-                "CreationDate": new Date(formattedDate),
-                "IsDeleted": false,
+                // Create a variable to store the form values
+                var newRecord = {
+                  "AccountID": Number(accountID),
+                  "ContactRole": formData.get("roleRadio"),
+                  "StudentCount": Number(formData.get("noOfStudents")),
+                  "AcadYear": formData.get("year"),
+                  "Title": formData.get("title"),
+                  "CompanyName": formData.get("company"),
+                  "CompanyPOC": formData.get("companyPoc"),
+                  "Description": formData.get("description"),
+                  "CreationDate": new Date(formattedDate),
+                  "IsDeleted": false,
+                }
+
+                console.log("DATA: ", newRecord);
+
+                CreateRecord(newRecord);
               }
-
-              console.log("DATA: ", newRecord);
-
-              CreateRecord(newRecord);
-            }
-            else if (accountID == -1) {
-              event.stopPropagation();
-              // Inform the user of error
-              alert(
-                "The username you entered does not match an existing user. Check the username and try again."
-              );
+              else if (accountID == -1) {
+                event.stopPropagation();
+                // Inform the user of error
+                alert(
+                  "The username you entered does not match an existing user. Check the username and try again."
+                );
+              }
             }
           },
           false
