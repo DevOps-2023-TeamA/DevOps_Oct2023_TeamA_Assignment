@@ -27,13 +27,21 @@ async function sendAuthRequest() {
             sessionStorage.setItem("ID", resData["ID"])
             sessionStorage.setItem("Name", resData["Name"])
             sessionStorage.setItem("Role", resData["Role"])
-            
+
             window.location.href = "../index.html"
-        } else if (response.status === 403) {
+        } else if (response.status === 401) {
             const outputHTML = 'Error: Incorrect username or password! Please try again.';
+            document.getElementById("error-message").innerHTML = outputHTML;
+        } else if (response.status === 500) {
+            const outputHTML = 'Error: Account does not exist'
+            document.getElementById("error-message").innerHTML = outputHTML;
+        } else {
+            const outputHTML = 'An unexpected error occured, please try again later.'
             document.getElementById("error-message").innerHTML = outputHTML;
         }
     } catch (error) {
+        const outputHTML = 'An unexpected error occured, please try again later.'
+        document.getElementById("error-message").innerHTML = outputHTML;
         console.error('Error:', error);
     }
 }
