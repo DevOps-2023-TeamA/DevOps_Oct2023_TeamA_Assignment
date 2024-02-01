@@ -31,7 +31,7 @@ async function GetAccount(selectedUsername) {
     return accountId;
   }
   catch (error) {
-    console.error("Error getting data:", error);
+    console.log("Error getting data:", error);
     if (error == "TypeError: Failed to fetch") {
       alert("Server Error. Try again.");
     }
@@ -95,7 +95,8 @@ async function CreateRecord(record) {
               const formData = new FormData(entryForm);
 
               // Get the AccountID of the user
-              const accountID = 2//await GetAccount(formData.get("name"))
+              const accountID = await GetAccount(formData.get("name"))
+              console.log(accountID);
 
               // Check if the username entered matches an active account
               if (accountID) {
@@ -142,3 +143,5 @@ async function CreateRecord(record) {
     false
   );
 })();
+
+module.exports = GetAccount;
