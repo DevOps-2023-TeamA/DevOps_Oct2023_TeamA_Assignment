@@ -1,7 +1,11 @@
-window.onload = function (){
+// Set welcome message and buttons based on role
+window.onload = () => {
+    // Get JWT token from cookie
     if (getCookie("jwtToken") !== null) {
+        // Set welcome message
         document.getElementById("roleWelcome").innerHTML = `Hi ${sessionStorage.getItem("Name")} (${sessionStorage.getItem("Role")})`
 
+        // Define outputHTML based on role
         if (sessionStorage.getItem("Role") === "Administrator") {
             outputHTML = `
                 <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="records-post.html">
@@ -22,10 +26,12 @@ window.onload = function (){
                     <i class="mdi mdi-text-box-search-outline"></i> Query Records
                 </a>`
         }
+        // Insert role-specific buttons
         document.getElementById("roleButtons").innerHTML = outputHTML
     }
 }
 
+// Function to get cookie value
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
