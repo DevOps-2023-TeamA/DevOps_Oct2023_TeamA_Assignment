@@ -10,7 +10,7 @@ if (cancelButton) {
 }
 
 // Function to get AccountID of entered username
-async function GetAccount(selectedUsername) {
+async function GetAccountID(selectedUsername) {
   try {
     const response = await fetch(`${apiURL}8002/api/users`);
     const data = await response.json();
@@ -95,7 +95,7 @@ async function CreateRecord(record) {
               const formData = new FormData(entryForm);
 
               // Get the AccountID of the user
-              const accountID = await GetAccount(formData.get("name"))
+              const accountID = await GetAccountID(formData.get("name"))
               console.log(accountID);
 
               // Check if the username entered matches an active account
@@ -144,4 +144,4 @@ async function CreateRecord(record) {
   );
 })();
 
-module.exports = GetAccount;
+module.exports = { GetAccount: GetAccountID, CreateRecord };
