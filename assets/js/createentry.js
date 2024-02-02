@@ -1,5 +1,15 @@
 const apiURL = "http://localhost:";
 
+// Get role from session to modify form 
+const userRole = sessionStorage.getItem("Role");
+
+if (userRole === "User") {
+  var nameInput = document.getElementById("name");
+  nameInput.setAttribute("readonly", true)
+  nameInput.value = sessionStorage.getItem("Name");
+}
+
+
 var cancelButton = document.getElementById("cancel");
 
 // Handle cancel of creation
@@ -10,7 +20,7 @@ if (cancelButton) {
 }
 
 // Function to get AccountID of entered username
-async function GetAccount(selectedUsername) {
+async function GetAccountID(selectedUsername) {
   try {
     const response = await fetch(`${apiURL}8002/api/users`);
     const data = await response.json();
@@ -31,7 +41,7 @@ async function GetAccount(selectedUsername) {
     return accountId;
   }
   catch (error) {
-    console.error("Error getting data:", error);
+    console.log("Error getting data:", error);
     if (error == "TypeError: Failed to fetch") {
       alert("Server Error. Try again.");
     }
@@ -62,14 +72,15 @@ async function CreateRecord(record) {
     }
   }
   catch (error) {
-    console.error("Error getting data:", error);
+    console.log("Error getting data:", error);
     if (error == "TypeError: Failed to fetch") {
       alert("Server Error. Try again.");
     }
   }
 }
 
-// Function for form validation
+
+// Function for form validation and submission
 !(function () {
   "use strict";
   // Wait for the window to load before executing function
@@ -84,6 +95,17 @@ async function CreateRecord(record) {
           "submit",
           async function (event) {
             event.preventDefault();
+
+            // Remove whitespace
+            var allInputs = entryForm.getElementsByTagName("input");
+            var descriptionBox = entryForm.getElementsByTagName("textarea")[0];
+            descriptionBox.value = descriptionBox.value.trim();
+
+            for (var i = 0; i < allInputs.length; i++) {
+              allInputs[i].value = allInputs[i].value.trim();
+            }
+
+            // Validate form
             if (!entryForm.checkValidity()) {
               event.stopPropagation();
               entryForm.classList.add("was-validated");
@@ -95,7 +117,13 @@ async function CreateRecord(record) {
               const formData = new FormData(entryForm);
 
               // Get the AccountID of the user
-              const accountID = 2//await GetAccount(formData.get("name"))
+              var accountID;
+              if (userRole === "User") {
+                accountID = sessionStorage.getItem("ID");
+              }
+              else {
+                accountID = await GetAccountID(formData.get("name"));
+              }
 
               // Check if the username entered matches an active account
               if (accountID) {
