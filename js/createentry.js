@@ -153,3 +153,5 @@ async function CreateRecord(record) {
     false
   );
 })();
+
+module.exports = { GetAccount: GetAccountID, CreateRecord };
