@@ -94,5 +94,59 @@ function modifyButton(id){
 }
 
 function deleteButton(id, name){
-    console.log(`Delete button clicked for ID ${id}`)
+    Swal.fire({
+        title: 'Confirm account deletion',
+        text: `You are deleting ${name}'s account`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#5156be',
+        cancelButtonColor: "#fd625e"
+    }).then(async function (result) {
+        if (result.value) {
+            // Define request options
+            const requestOptions = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            };
+
+            try {
+                // Send request to server
+                const response = await fetch(`http://localhost:8002/api/accounts/${id}`, requestOptions);
+                // Handle successful login
+                if (response.status === 202) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: `${name}'s account has been deleted`,
+                        icon: 'success',
+                        confirmButtonColor: '#5156be',
+                    }).then(() => window.location.reload());
+                } else if (response.status === 404) {             
+                    Swal.fire({
+                        title: 'Error',
+                        text: `${name}'s account cannot be found`,
+                        icon: 'error',
+                        confirmButtonColor: '#5156be',
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `An unexpected error occured, please try again later`,
+                        icon: 'error',
+                        confirmButtonColor: '#5156be',
+                    })
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+              title: 'Cancelled',
+              text: `${name}'s account has not been deleted`,
+              icon: 'error',
+              confirmButtonColor: '#5156be',
+            })
+          }
+    });
 }
