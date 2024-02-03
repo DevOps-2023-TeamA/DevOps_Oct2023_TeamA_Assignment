@@ -85,3 +85,8 @@ document.getElementById('loginButton').addEventListener('click', function(event)
     event.preventDefault();
     sendAuthRequest();
 });
+
+document.getElementById('newAccountButton').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = "../create-account.html";
+});
