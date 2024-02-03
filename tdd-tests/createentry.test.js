@@ -16,9 +16,7 @@ describe('GetAccountID Function', () => {
         // Create a mock function that will return preset values that will be added to any fetches 
         global.fetch = jest.fn().mockResolvedValue({
             status: 202,
-            json: () => Promise.resolve(
-                { ID: 1 }
-            )
+            text: jest.fn().mockResolvedValue(1)
         });
 
         // Call the function
