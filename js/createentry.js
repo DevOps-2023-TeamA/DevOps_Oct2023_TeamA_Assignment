@@ -6,7 +6,7 @@ const userRole = sessionStorage.getItem("Role");
 if (userRole === "User") {
   var nameInput = document.getElementById("name");
   nameInput.setAttribute("readonly", true)
-  nameInput.value = sessionStorage.getItem("Name");
+  nameInput.value = sessionStorage.getItem("Username");
 }
 
 
@@ -22,29 +22,18 @@ if (cancelButton) {
 // Function to get AccountID of entered username
 async function GetAccountID(selectedUsername) {
   try {
-    const response = await fetch(`${apiURL}8002/api/users`);
-    const data = await response.json();
-    console.log("Accounts Data:", data);
+    const response = await fetch(`${apiURL}8002/api/accounts/retrieve/${selectedUsername}`);
+    const accountID = await response.text();
 
-    const selectedAccount = data.find(
-      (account) =>
-        account.Username === selectedUsername &&
-        !account.IsDeleted &&
-        account.IsApproved
-    );
-    const accountId = selectedAccount ? selectedAccount.ID : null;
-
-    if (!accountId) {
+    if (accountID.includes("Account has not been approved OR Account has been deleted")) {
       return -1;
     }
 
-    return accountId;
+    return accountID;
   }
   catch (error) {
-    console.log("Error getting data:", error);
-    if (error == "TypeError: Failed to fetch") {
-      alert("Server Error. Try again.");
-    }
+    console.log("Error getting account:", error);
+    alert("Server Error. Try again.");
     return null;
   }
 }
@@ -62,7 +51,7 @@ async function CreateRecord(record) {
     const data = await response.json();
 
     // Check response status from API
-    if (response.ok) {
+    if (response.status == 202) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
       window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
@@ -72,10 +61,8 @@ async function CreateRecord(record) {
     }
   }
   catch (error) {
-    console.log("Error getting data:", error);
-    if (error == "TypeError: Failed to fetch") {
-      alert("Server Error. Try again.");
-    }
+    console.log("Error creating record:", error);
+    alert("Server Error. Try again.");
   }
 }
 
@@ -129,16 +116,14 @@ async function CreateRecord(record) {
               }
 
               // Check if the username entered matches an active account
-              if (accountID) {
-                // Get current date value in yyyy-MM-dd
-                const currentDate = new Date()
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth() + 1;
-                const day = currentDate.getDate();
-
-                // Format date into YYYY-MM-DD format
-                const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-
+              if (accountID == -1) {
+                event.stopPropagation();
+                // Inform the user of error
+                alert(
+                  "The username you entered does not match an active user. Check the username and try again."
+                );
+              }
+              else if (accountID != null) {
                 // Create a variable to store the form values
                 var newRecord = {
                   "AccountID": Number(accountID),
@@ -149,20 +134,12 @@ async function CreateRecord(record) {
                   "CompanyName": formData.get("company"),
                   "CompanyPOC": formData.get("companyPoc"),
                   "Description": formData.get("description"),
-                  "CreationDate": new Date(formattedDate),
-                  "IsDeleted": false,
+                  "IsDeleted": false
                 }
 
                 console.log("DATA: ", newRecord);
 
                 CreateRecord(newRecord);
-              }
-              else if (accountID == -1) {
-                event.stopPropagation();
-                // Inform the user of error
-                alert(
-                  "The username you entered does not match an existing user. Check the username and try again."
-                );
               }
             }
 
