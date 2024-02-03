@@ -96,6 +96,9 @@ async function CreateRecord(record) {
           async function (event) {
             event.preventDefault();
 
+            // Disable button to prevent multiple submit calls
+            document.getElementById("save").disabled = true;
+
             // Remove whitespace
             var allInputs = entryForm.getElementsByTagName("input");
             var descriptionBox = entryForm.getElementsByTagName("textarea")[0];
@@ -162,6 +165,9 @@ async function CreateRecord(record) {
                 );
               }
             }
+
+            // Re-enable button
+            document.getElementById("save").disabled = false;
           },
           false
         );
