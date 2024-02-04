@@ -56,10 +56,10 @@ describe('GetAccountID Function', () => {
         expect(accountId).toBe(-1);
     });
 
-    // Test case for server error
-    test('GetAccountID returns null and displays alert for server error', async () => {
+    // Test case for connection to server
+    test('GetAccountID returns null and displays alert when not able to connect to server', async () => {
         // Create a mock function that will return an error for any fetches 
-        global.fetch = jest.fn().mockRejectedValue(new Error('Failed to fetch'));
+        global.fetch = jest.fn().mockRejectedValue(new Error("Failed to fetch"));
 
         // Create a mock function for any alert() calls
         global.alert = jest.fn();
@@ -71,6 +71,22 @@ describe('GetAccountID Function', () => {
         expect(accountId).toBe(null); // Expect null for server error
         expect(global.alert).toHaveBeenCalledWith("Server Error. Try again.");
     });
+
+    // Test case for internal servor error
+    test("GetAccountID returns null and displays alert when receiving internal server error", async () => {
+        // Create a mock function that will return an error for any fetches 
+        global.fetch = jest.fn().mockRejectedValue(new Error("Internal Server Error"));
+
+        // Create a mock function for any alert() calls
+        global.alert = jest.fn();
+
+        // Call the function
+        const accountId = await GetAccountID("randomUsername");
+
+        // Expect that the Account ID will be null and that the alert() function will be called with the appropriate text
+        expect(accountId).toBe(null); // Expect null for server error
+        expect(global.alert).toHaveBeenCalledWith("Server Error. Try again.");
+    })
 });
 
 

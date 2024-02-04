@@ -48,13 +48,13 @@ async function CreateRecord(record) {
       body: JSON.stringify(record),
     });
 
-    const data = await response.json();
+    await response.json();
 
     // Check response status from API
     if (response.status == 202) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
-      //window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
+      window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
     }
     else {
       throw new Error(`HTTP error! Status: ${response.status}`)
