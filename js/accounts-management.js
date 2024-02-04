@@ -42,7 +42,7 @@ async function readAccounts() {
                         <td> ${account["IsApproved"]} </td>
                         <td>
                             <button onclick="editButton(${account["ID"]}, '${account["Name"]}', '${account["Username"]}', '${account["Role"]}')" class="btn btn-primary waves-effect waves-light" role="button"><i class="mdi mdi-account-edit-outline font-size-16 align-middle"></i> Edit </button>
-                            <button onclick="changePasswordButton(${account["ID"]})" class="btn btn-info waves-effect waves-light" role="button"><i class="mdi mdi-form-textbox-password font-size-16 align-middle"></i> Change Password </button>
+                            <button onclick="changePasswordButton(${account["ID"]}, '${account["Password"]}')" class="btn btn-info waves-effect waves-light" role="button"><i class="mdi mdi-form-textbox-password font-size-16 align-middle"></i> Change Password </button>
                             <button onclick="deleteButton(${account["ID"]}, '${account["Name"]}')" class="btn btn-danger waves-effect waves-light" role="button"><i class="mdi mdi-trash-can-outline font-size-16 align-middle"></i> Delete </button>
                             ${approveButtonHTML}
                         </td>
@@ -102,6 +102,12 @@ function editButton(id, name, username, role){
     localStorage.setItem("tempUsername", username)
     localStorage.setItem("tempRole", role)
     window.location.href = "../edit-account.html"
+}
+
+function changePasswordButton(id, password){
+    localStorage.setItem("tempID", id)
+    localStorage.setItem("tempPassword", password)
+    window.location.href = "../change-password.html"
 }
 
 function deleteButton(id, name){

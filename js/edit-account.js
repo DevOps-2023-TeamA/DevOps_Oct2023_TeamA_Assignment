@@ -50,7 +50,7 @@ async function editAccount() {
         // Handle successful login
         if (response.status === 202) {
             // Clear error message
-            document.getElementById("error-message").innerHTML = '';
+            document.getElementById("errorMessage").innerHTML = '';
             // Show success message
             Swal.fire({
                 title: 'Success',
@@ -60,16 +60,13 @@ async function editAccount() {
             }).then(() => window.location.href = "../accounts-management.html");
         } else if (response.status === 404) {               // SHOULD NOT OCCUR
             const outputHTML = 'Error: Account ID does not exist. Please try again.';
-            document.getElementById("error-message").innerHTML = outputHTML;
-        } else if (response.status === 409) {               // Handle incorrect username or password
-            const outputHTML = 'Error: Username already exists. Please try again.';
-            document.getElementById("error-message").innerHTML = outputHTML;
+            document.getElementById("errorMessage").innerHTML = outputHTML;
         } else if (response.status === 500) {               // Handle non-existent account
-            const outputHTML = 'Error: Unable to create modify account information'
-            document.getElementById("error-message").innerHTML = outputHTML;
+            const outputHTML = 'Error: Unable to create change account password'
+            document.getElementById("errorMessage").innerHTML = outputHTML;
         } else {                                            // Handle unexpected error
             const outputHTML = 'An unexpected error occured, please try again later.'
-            document.getElementById("error-message").innerHTML = outputHTML;
+            document.getElementById("errorMessage").innerHTML = outputHTML;
         }
     } catch (error) {
         console.error('Error:', error);
