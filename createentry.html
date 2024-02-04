@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TSA Office Records Systems</title>
+
+    <link rel="stylesheet" href="assets/css/preloader.css" type="text/css" />
+    <link href="assets/css/bootstrap.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="./global.css">
+</head>
+
+<body>
+    <div id="layout-wrapper">
+        <!--Header-->
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo-txt">
+                            TSAO Capstone Records
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <a href="index.html" class="btn btn-primary w-md waves-effect waves-light">
+                        <span class="d-none d-sm-inline-block me-2">Log Out</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!--Page Title-->
+        <div class="page-content">
+            <h1 class="header">
+                Create New Capstone Entry
+            </h1>
+        </div>
+
+
+        <!--Form Container-->
+        <form id="create-entry" novalidate>
+            <div class="mb-5 d-flex justify-content-center">
+                <div class="col-lg-10 d-flex justify-content-center flex-column">
+                    <div class="row d-flex justify-content-center">
+                        <!--Left side inputs-->
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-15">
+                                    <div>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Username</label>
+                                            <input class="form-control" type="text" placeholder="e.g. TanKK" name="name"
+                                                id="name" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a Name.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col-md-5">
+                                            <div>
+                                                <label class="form-label">Role of Contact</label>
+                                                <div class="form-check mb-3">
+                                                    <input class="form-input" type="radio" name="roleRadio"
+                                                        value="Staff" checked>
+                                                    <label class="form-label" for="staff">
+                                                        Staff
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-input" type="radio" name="roleRadio"
+                                                        value="Student">
+                                                    <label class="form-label" for="student">
+                                                        Student
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row-sm-3 mb-3">
+                                                <label for="noOfStudents" class="form-label">No. Of Students</label>
+                                                <input class="form-control" type="number" placeholder="e.g. 4" value="1"
+                                                    min="1" name="noOfStudents" required>
+                                                <div class="invalid-feedback">
+                                                    You must have at least 1 student
+                                                </div>
+                                            </div>
+                                            <div class="row-sm-3 mb-3">
+                                                <label for="Year" class="form-label">Academic Year</label>
+                                                <input class="form-control" type="text" pattern="\d{4}/\d{2}"
+                                                    maxlength="7" minlength="7" value="2023/24"
+                                                    placeholder="e.g. 2023/24" name="year" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Right side inputs-->
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Capstone Title</label>
+                                        <input class="form-control" type="text" placeholder="e.g. Quantum Mechanics"
+                                            value="Quantum Mechanics" name="title" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a title.
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="company" class="form-label">Name of company</label>
+                                        <input class="form-control" type="text" placeholder="e.g. KK company"
+                                            value="KK Company" name="company" required>
+                                        <div class="invalid-feedback">
+                                            Please provide the company name.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="poc" class="form-label">Company Point of Contact</label>
+                                        <input class="form-control" type="text" placeholder="e.g. Tan BB" value="Tan BB"
+                                            name="companyPoc" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a point of contact.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Description text area-->
+                    <div class="row-sm-8 d-flex justify-content-center">
+                        <div class="col-8">
+                            <label for="description" class="form-label">Brief Description of Project</label>
+                            <textarea class="form-control" rows="5" placeholder="Write here" name="description"
+                                required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide a brief description.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Action buttons-->
+                    <div class="row-lg-5 mt-4 d-flex justify-content-evenly">
+                        <div class="col-sm-1 d-flex justify-content-center align-items-center">
+                            <button class="btn btn-success btn-lg" type="submit" id="save">Save</button>
+                        </div>
+                        <div class="col-sm-1 d-flex justify-content-center align-items-center">
+                            <div class="btn btn-danger btn-lg" id="cancel">Cancel</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </form>
+
+    </div>
+
+    <!--Javascript-->
+    <script src="./js/createentry.js"></script>
+    <!-- <script src="./js/logout.js"></script> -->
+</body>
+
+</html>
