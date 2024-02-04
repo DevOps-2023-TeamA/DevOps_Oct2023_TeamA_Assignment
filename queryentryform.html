@@ -53,11 +53,11 @@
                                 <div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">By Academic Year</label>
-                                        <input class="form-control" type="text" placeholder="e.g. AY2024"
-                                            pattern="^AY\d{4}$" maxlength="6" minlength="6" name="year" id="year"
+                                        <input class="form-control" type="text" placeholder="e.g. 2023/24"
+                                            pattern="\d{4}/\d{2}" maxlength="7" minlength="7" name="year" id="year"
                                             required>
                                         <div class="invalid-feedback">
-                                            Please provide a year.
+                                            Please provide a valid year.
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                     <!--Action buttons-->
                     <div class="row-lg-5 mt-4 d-flex justify-content-evenly">
                         <div class="col-sm-1 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-success btn-lg" type="submit" id="save">Save</button>
+                            <button class="btn btn-success btn-lg" type="submit" id="search">Search</button>
                         </div>
                         <div class="col-sm-1 d-flex justify-content-center align-items-center">
                             <div class="btn btn-danger btn-lg" id="cancel">Cancel</div>
