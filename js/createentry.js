@@ -23,13 +23,13 @@ if (cancelButton) {
 async function GetAccountID(selectedUsername) {
   try {
     const response = await fetch(`${apiURL}8002/api/accounts/retrieve/${selectedUsername}`);
-    const accountID = await response.text();
+    const accountID = (await response.text()).trim();
 
     if (accountID.includes("Account has not been approved OR Account has been deleted")) {
       return -1;
     }
 
-    return accountID;
+    return Number(accountID);
   }
   catch (error) {
     console.log("Error getting account:", error);
@@ -54,7 +54,7 @@ async function CreateRecord(record) {
     if (response.status == 202) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
-      window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
+      //window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
     }
     else {
       throw new Error(`HTTP error! Status: ${response.status}`)
@@ -126,7 +126,7 @@ async function CreateRecord(record) {
               else if (accountID != null) {
                 // Create a variable to store the form values
                 var newRecord = {
-                  "AccountID": Number(accountID),
+                  "AccountID": accountID,
                   "ContactRole": formData.get("roleRadio"),
                   "StudentCount": Number(formData.get("noOfStudents")),
                   "AcadYear": formData.get("year"),
@@ -154,4 +154,4 @@ async function CreateRecord(record) {
   );
 })();
 
-module.exports = { GetAccount: GetAccountID, CreateRecord };
+module.exports = { GetAccountID, CreateRecord };

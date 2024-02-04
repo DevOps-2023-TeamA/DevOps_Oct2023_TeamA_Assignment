@@ -3,7 +3,7 @@
  */
 
 // Import the function
-const { GetAccountID } = require('../js/createentry');
+const { GetAccountID, CreateRecord } = require('../js/createentry');
 
 
 // ===============================
@@ -16,7 +16,7 @@ describe('GetAccountID Function', () => {
         // Create a mock function that will return preset values that will be added to any fetches 
         global.fetch = jest.fn().mockResolvedValue({
             status: 202,
-            text: jest.fn().mockResolvedValue(1)
+            text: jest.fn().mockResolvedValue("1")
         });
 
         // Call the function
@@ -31,7 +31,7 @@ describe('GetAccountID Function', () => {
         // Create a mock function that will return preset values that will be added to any fetches 
         global.fetch = jest.fn().mockResolvedValue({
             status: 404,
-            text: jest.fn().mockResolvedValue("Account does not exist")
+            text: jest.fn().mockResolvedValue("Account has not been approved OR Account has been deleted")
         });
 
         // Call the function
@@ -46,7 +46,7 @@ describe('GetAccountID Function', () => {
         // Create a mock function that will return preset values that will be added to any fetches 
         global.fetch = jest.fn().mockResolvedValue({
             status: 404,
-            text: jest.fn().mockResolvedValue("Account does not exist")
+            text: jest.fn().mockResolvedValue("Account has not been approved OR Account has been deleted")
         });
 
         // Call the function
