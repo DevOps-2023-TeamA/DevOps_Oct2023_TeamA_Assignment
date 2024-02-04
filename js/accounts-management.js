@@ -23,31 +23,34 @@ async function readAccounts() {
         
         for (let index = 0; index < resData.length; index++) {
             const account = resData[index];
-    
-            approveButtonHTML = account["IsApproved"] 
-            ? `<button disabled class="btn btn-soft-success waves-effect waves-light"><i class="mdi mdi-account-check-outline align-middle"></i> Approve </button>` 
-            : `<button id="approveID${account["ID"]}" onclick="approveButton(${account["ID"]}, '${account["Name"]}')" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-account-check-outline align-middle"></i> Approve </button>`
-            account["IsApproved"] = account["IsApproved"] ? "Yes" : "No";
-            
-            outputHTML = `
-                <tr>
-                    <th> ${account["ID"]} </th>
-                    <td> ${account["Name"]} </td>
-                    <td> ${account["Username"]} </td>
-                    <td> ${account["Password"]} </td>
-                    <td> ${account["Role"]} </td>
-                    <td> ${account["CreationDate"]} </td>
-                    <td> ${account["IsApproved"]} </td>
-                    <td>
-                        <button onclick="editButton(${account["ID"]}, '${account["Name"]}', '${account["Username"]}', '${account["Role"]}')" class="btn btn-primary waves-effect waves-light" role="button"><i class="mdi mdi-account-edit-outline font-size-16 align-middle"></i> Edit </button>
-                        <button onclick="changePasswordButton(${account["ID"]})" class="btn btn-info waves-effect waves-light" role="button"><i class="mdi mdi-form-textbox-password font-size-16 align-middle"></i> Change Password </button>
-                        <button onclick="deleteButton(${account["ID"]}, '${account["Name"]}')" class="btn btn-danger waves-effect waves-light" role="button"><i class="mdi mdi-trash-can-outline font-size-16 align-middle"></i> Delete </button>
-                        ${approveButtonHTML}
-                    </td>
-                </tr>
-            `
-    
-            document.getElementById("accountsTable").innerHTML += outputHTML
+
+            if (sessionStorage.getItem("ID") != account["ID"]) {
+                console.log(account["ID"])
+                approveButtonHTML = account["IsApproved"] 
+                ? `<button disabled class="btn btn-soft-success waves-effect waves-light"><i class="mdi mdi-account-check-outline align-middle"></i> Approve </button>` 
+                : `<button id="approveID${account["ID"]}" onclick="approveButton(${account["ID"]}, '${account["Name"]}')" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-account-check-outline align-middle"></i> Approve </button>`
+                account["IsApproved"] = account["IsApproved"] ? "Yes" : "No";
+                
+                outputHTML = `
+                    <tr>
+                        <th> ${account["ID"]} </th>
+                        <td> ${account["Name"]} </td>
+                        <td> ${account["Username"]} </td>
+                        <td> ${account["Password"]} </td>
+                        <td> ${account["Role"]} </td>
+                        <td> ${account["CreationDate"]} </td>
+                        <td> ${account["IsApproved"]} </td>
+                        <td>
+                            <button onclick="editButton(${account["ID"]}, '${account["Name"]}', '${account["Username"]}', '${account["Role"]}')" class="btn btn-primary waves-effect waves-light" role="button"><i class="mdi mdi-account-edit-outline font-size-16 align-middle"></i> Edit </button>
+                            <button onclick="changePasswordButton(${account["ID"]})" class="btn btn-info waves-effect waves-light" role="button"><i class="mdi mdi-form-textbox-password font-size-16 align-middle"></i> Change Password </button>
+                            <button onclick="deleteButton(${account["ID"]}, '${account["Name"]}')" class="btn btn-danger waves-effect waves-light" role="button"><i class="mdi mdi-trash-can-outline font-size-16 align-middle"></i> Delete </button>
+                            ${approveButtonHTML}
+                        </td>
+                    </tr>
+                `
+        
+                document.getElementById("accountsTable").innerHTML += outputHTML
+            }
         }
     } catch (error) {
         console.error('Error:', error);
