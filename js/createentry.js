@@ -1,4 +1,6 @@
-const apiURL = "http://localhost:";
+const accountAPIURL = "http://localhost:8002/api/accounts";
+const recordAPIURL = "http://localhost:8001/api/records";
+
 
 // Get role from session to modify form 
 const userRole = sessionStorage.getItem("Role");
@@ -22,7 +24,7 @@ if (cancelButton) {
 // Function to get AccountID of entered username
 async function GetAccountID(selectedUsername) {
   try {
-    const response = await fetch(`${apiURL}8002/api/accounts/retrieve/${selectedUsername}`);
+    const response = await fetch(`${accountAPIURL}/retrieve/${selectedUsername}`);
     const accountID = (await response.text()).trim();
 
     if (accountID.includes("Account has not been approved OR Account has been deleted")) {
@@ -42,7 +44,7 @@ async function GetAccountID(selectedUsername) {
 async function CreateRecord(record) {
   try {
     console.log("String: ", JSON.stringify(record))
-    const response = await fetch(`${apiURL}8001/api/records`, {
+    const response = await fetch(recordAPIURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(record),
