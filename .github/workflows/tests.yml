@@ -102,8 +102,7 @@ jobs:
           node-version: 18
       - name: "[Lighthouse] Install Lighthouse"
         run: |
-          npm install && npm install -g @lhci/cli@0.13.x
-          npm run build
+          npm install -g @lhci/cli@0.13.x
       - name: Run Lighthouse CI
         run: lhci autorun --config=./sources/frontend/.lighthouserc.json
       - name: Upload Lighthouse Reports
