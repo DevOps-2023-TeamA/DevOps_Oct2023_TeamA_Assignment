@@ -38,6 +38,7 @@ async function sendAuthRequest() {
             // Store user data in session storage
             sessionStorage.setItem("ID", resData["ID"])
             sessionStorage.setItem("Name", resData["Name"])
+            sessionStorage.setItem("Username", resData["Username"])
             sessionStorage.setItem("Role", resData["Role"])
 
             // Redirect to homepage
