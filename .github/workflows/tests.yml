@@ -105,6 +105,8 @@ jobs:
           npm install -g @lhci/cli@0.13.x
       - name: Run Lighthouse CI
         run: lhci autorun --config=./sources/frontend/.lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: $
       - name: Upload Lighthouse Reports
         if: always()
         uses: actions/upload-artifact@v2
