@@ -76,7 +76,7 @@ async function GetRecords(year, keyword) {
                             }
                             else if (records != null) {
                                 // Store the records in session storage to be displayed in list page
-                                sessionStorage.setItem("QueriedEntries", records);
+                                sessionStorage.setItem("QueriedEntries", JSON.stringify(records));
 
                                 // Redirect to display page
                                 window.location.href = "queryentrylist.html";
