@@ -107,9 +107,3 @@ jobs:
         run: lhci autorun --config=./sources/frontend/.lighthouserc.json
         env:
           LHCI_GITHUB_APP_TOKEN: $
-      - name: Upload Lighthouse Reports
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: lighthouse-reports
-          path: ./lighthouse-results

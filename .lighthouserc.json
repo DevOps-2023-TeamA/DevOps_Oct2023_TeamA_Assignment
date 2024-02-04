@@ -4,8 +4,7 @@
       "url": ["http://localhost:8080"]
     },
     "upload": {
-      "target": "filesystem",
-      "outputDir": "./lighthouse-results"
+      "target": "temporary-public-storage"
     }
   }
 }
