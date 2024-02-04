@@ -126,3 +126,26 @@ jobs:
         run: lhci autorun --config=./sources/frontend/.lighthouserc.json
         env:
           LHCI_GITHUB_APP_TOKEN: $
+
+      - name: "[Testing] Setup Node.js environment"
+        uses: actions/setup-node@v4.0.1
+
+      - name: "[Testing] Install dependencies"
+        run: |
+          cd sources/frontend
+          npm install 
+        working-directory: ${{ github.workspace }}
+
+      - name: "[Testing] Run Test Cases"
+        run: |
+          npm test
+          mkdir -p jest-artifacts
+          mv ./coverage ./jest-artifacts/coverage
+          mv ./test-results.json ./jest-artifacts/test-results.json
+        working-directory: ${{ github.workspace }}
+
+      - name: "[Testing] Upload Artifacts"
+        uses: actions/upload-artifact@v2
+        with:
+          name: jest-artifacts
+          path: jest-artifacts
