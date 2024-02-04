@@ -1,0 +1,26 @@
+{
+  "name": "devopsassignment",
+  "version": "10.3.0",
+  "description": "1. [Overview](#overview)\r 2. [Technologies Used](#technologies-used)\r 3. [Requirements](#requirements)\r 4. [Recommended Modules](#recommended-modules)\r 5. [Installation](#installation)\r 6. [Troubleshooting](#troubleshooting)\r 7. [Maintainers](#maintainers)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevOps-2023-TeamA/tsao-frontend-svc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevOps-2023-TeamA/tsao-frontend-svc/issues"
+  },
+  "homepage": "https://github.com/DevOps-2023-TeamA/tsao-frontend-svc#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
