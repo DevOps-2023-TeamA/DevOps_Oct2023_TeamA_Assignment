@@ -33,10 +33,11 @@ async function sendAuthRequest() {
             console.log('Response:', resData);
 
             // Set JWT token cookie
-            setCookie('jwtToken',resData["Token"],30)
-            
+            setCookie('jwtToken', resData["Token"], 30)
+
             // Store user data in session storage
             sessionStorage.setItem("ID", resData["ID"])
+            sessionStorage.setItem("Username", resData["Username"])
             sessionStorage.setItem("Name", resData["Name"])
             sessionStorage.setItem("Role", resData["Role"])
 
@@ -58,30 +59,30 @@ async function sendAuthRequest() {
 }
 
 // Sets a cookie with a name, value, and number of days until expiration
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
     var expires = "";
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
 // Function to get cookie value by name
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
 
 // Prevent default form submission
-document.getElementById('loginButton').addEventListener('click', function(event) {
+document.getElementById('loginButton').addEventListener('click', function (event) {
     event.preventDefault();
     sendAuthRequest();
 });

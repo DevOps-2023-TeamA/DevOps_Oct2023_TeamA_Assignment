@@ -55,7 +55,7 @@ async function CreateRecord(record) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
 
-      window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
+      window.location.href = "index.html";
     }
     else {
       throw new Error(`HTTP error! Status: ${response.status}`);
