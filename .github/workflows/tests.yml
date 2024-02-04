@@ -96,3 +96,13 @@ jobs:
         with:
           name: selenium-artifacts
           path: results/
+      - name: "[Lighthouse] Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: "[Lighthouse] Install Lighthouse"
+        run: |
+          npm install && npm install -g @lhci/cli@0.13.x
+          npm run build
+      - name: "[Lighthouse] Run"
+        run: lhci autorun
