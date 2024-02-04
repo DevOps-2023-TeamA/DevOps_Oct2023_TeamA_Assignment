@@ -104,5 +104,11 @@ jobs:
         run: |
           npm install && npm install -g @lhci/cli@0.13.x
           npm run build
-      - name: "[Lighthouse] Run"
-        run: lhci autorun
+      - name: Run Lighthouse CI
+        run: lhci autorun --config=./sources/frontend/.lighthouserc.json
+      - name: Upload Lighthouse Reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: lighthouse-reports
+          path: ./lighthouse-results
