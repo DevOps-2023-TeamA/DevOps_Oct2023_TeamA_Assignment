@@ -139,7 +139,7 @@ jobs:
       - name: "[Testing] Run Test Cases"
         run: |
           cd sources/frontend
-          jest -- --coverage --json --outputFile=test-results.json
+          npm test -- --coverage --json --outputFile=test-results.json
           mkdir -p jest-artifacts
           mv ./coverage ./jest-artifacts/coverage
           mv ./test-results.json ./jest-artifacts/test-results.json
