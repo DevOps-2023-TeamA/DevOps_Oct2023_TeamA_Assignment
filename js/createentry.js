@@ -48,8 +48,6 @@ async function CreateRecord(record) {
       body: JSON.stringify(record),
     });
 
-    await response.json();
-
     // Check response status from API
     if (response.status == 202) {
       // Inform user and redirect to main page
@@ -57,7 +55,7 @@ async function CreateRecord(record) {
       window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
     }
     else {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      throw new Error(`Server error! Status: ${response.status}`)
     }
   }
   catch (error) {
