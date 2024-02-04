@@ -77,10 +77,10 @@ jobs:
           pip install robotframework-seleniumlibrary
         working-directory: ${{ github.workspace }}
 
-      # - name: "[Testing] Run Chrome Robot Framework Tests"
-      #   run: |
-      #     robot -v BROWSER:chrome --outputdir results/ tests/test.robot
-      #   working-directory: ${{ github.workspace }}
+      - name: "[Testing] Run Chrome Robot Framework Tests"
+        run: |
+          robot -v BROWSER:chrome --outputdir results/ tests/test.robot
+        working-directory: ${{ github.workspace }}
       # - name: Install Firefox
       #   uses: browser-actions/setup-firefox@latest
       # - name: Install Geckodriver
