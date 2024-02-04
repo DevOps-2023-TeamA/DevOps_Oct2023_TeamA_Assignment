@@ -77,6 +77,7 @@ describe('GetAccountID Function', () => {
         // Create a mock function that will return an error for any fetches 
         global.fetch = jest.fn().mockRejectedValue(new Error("Internal Server Error"));
 
+
         // Create a mock function for any alert() calls
         global.alert = jest.fn();
 
