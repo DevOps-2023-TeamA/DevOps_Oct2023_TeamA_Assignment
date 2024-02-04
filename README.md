@@ -48,7 +48,7 @@ python -m http.server [Port Number]
 ## Maintainers
 
 - [Yee Jia Chen](https://github.com/jiachenyee) S10219344C
-- [Isabelle Pak Yi Shan](https://github.com/isabellepakyishan) S1022456
+- [Isabelle Pak Yi Shan](https://github.com/isabellepakyishan) S10222456J
 - [Ho Kuan Zher](https://github.com/Kuan-Zher) S10223870D
 - [Cheah Seng Jun](https://github.com/DanielCheahSJ) S10227333K
-- [Chua Guo Jun](https://github.com/GuojunLoser) S10227742H
+- [Chua Guo Jun](https://github.com/GuojunLoser) s10227743H
