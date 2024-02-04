@@ -1,4 +1,4 @@
-name: Robot Framework Tests
+name: Tests
 
 on:
   push:
@@ -115,3 +115,14 @@ jobs:
         with:
           name: selenium-artifacts
           path: results/
+      - name: "[Lighthouse] Set up Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: "[Lighthouse] Install Lighthouse"
+        run: |
+          npm install -g @lhci/cli@0.13.x
+      - name: Run Lighthouse CI
+        run: lhci autorun --config=./sources/frontend/.lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: $
