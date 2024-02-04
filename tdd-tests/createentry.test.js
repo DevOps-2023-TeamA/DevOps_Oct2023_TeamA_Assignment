@@ -91,9 +91,9 @@ describe('GetAccountID Function', () => {
 
 
 
-// ===============================
+// =================================
 // Testing for CreateRecord function
-// ===============================
+// =================================
 
 describe('CreateRecord Function', () => {
     test("CreateRecord creates new record and redirects on success", async () => {
