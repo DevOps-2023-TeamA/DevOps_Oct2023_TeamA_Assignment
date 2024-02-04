@@ -2,6 +2,10 @@ window.onload = () => {
     readAccounts()
 }
 
+document.getElementById('returnButton').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = "../index.html";
+});
 
 async function readAccounts() {
     // Define request options

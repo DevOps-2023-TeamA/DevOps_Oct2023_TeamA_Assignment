@@ -49,32 +49,37 @@
         </header>
         <div class="container-fluid">
             <div class="page-content">
-                    <div class="text-center">
-                        <h2 class="mb-0" style="padding-bottom: 10px;">Account Management</h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <table id="datatable" class="table table-hover dt-responsive nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th> ID </th>
-                                        <th> Name </th>
-                                        <th> Username </th>
-                                        <th> Password (SHA-256 Encrypted) </th>
-                                        <th> Role </th>
-                                        <th> Creation Date </th>
-                                        <th> Approval Status </th>
-                                        <th> Actions </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="accountsTable">
-                                    
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="text-center">
+                    <h2 class="mb-0" style="padding-bottom: 10px;">Account Management</h2>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table id="datatable" class="table table-hover dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th> ID </th>
+                                    <th> Name </th>
+                                    <th> Username </th>
+                                    <th> Password (SHA-256 Encrypted) </th>
+                                    <th> Role </th>
+                                    <th> Creation Date </th>
+                                    <th> Approval Status </th>
+                                    <th> Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountsTable">
+                                
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    <button id="returnButton" class="btn btn-primary waves-effect waves-light" type="submit">
+                        <i class="mdi mdi-arrow-left-top"></i> Return
+                    </button>
+                </div>
             </div>
+        </div>
     </div>
     <script src="assets/libs/feather-icons/feather.min.js"></script>
     <script src="assets/js/pages/materialdesign.init.js"></script>
