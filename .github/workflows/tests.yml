@@ -138,6 +138,7 @@ jobs:
 
       - name: "[Testing] Run Test Cases"
         run: |
+          cd sources/frontend
           npm test
           mkdir -p jest-artifacts
           mv ./coverage ./jest-artifacts/coverage
@@ -148,4 +149,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: jest-artifacts
-          path: jest-artifacts
+          path: sources/frontend/jest-artifacts
