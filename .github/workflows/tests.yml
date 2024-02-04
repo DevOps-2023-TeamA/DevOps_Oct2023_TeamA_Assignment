@@ -146,6 +146,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: "[Testing] Upload Artifacts"
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: jest-artifacts
