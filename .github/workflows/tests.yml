@@ -40,21 +40,33 @@ jobs:
         working-directory: ${{ github.workspace }}
       - name: "[Backend] Setup Go environment"
         uses: actions/setup-go@v5.0.0
+        with:
+          go-version: '1.21'
+      - name: "[Backend] Set up .env file"
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          cd sources/backend
+          echo "SECRET_KEY=$SECRET_KEY" > .env
+          ls
+        working-directory: ${{ github.workspace }}
       - name: "[Backend] Deploy Auth Microservice"
         run: |
           cd sources/backend
-          go run microservices/auth/auth.go -sql "root:root@protocol@tcp(127.0.0.1:3306)/tsao" &
+          go run microservices/auth/*.go -sql "root:root@tcp(127.0.0.1:3306)/tsao" &
         working-directory: ${{ github.workspace }}
-      - name: "[Backend] Deploy Users Microservice"
+      - name: "[Backend] Deploy Accounts Microservice"
         run: |
           cd sources/backend
-          go run microservices/users/users.go -sql "root:root@protocol@tcp(127.0.0.1:3306)/tsao" &
+          go run microservices/accounts/*.go -sql "root:root@tcp(127.0.0.1:3306)/tsao" &
         working-directory: ${{ github.workspace }}
       - name: "[Backend] Deploy Records Microservice"
         run: |
           cd sources/backend
-          go run microservices/records/records.go -sql "root:root@protocol@tcp(127.0.0.1:3306)/tsao" &
+          go run microservices/records/*.go -sql "root:root@tcp(127.0.0.1:3306)/tsao" &
         working-directory: ${{ github.workspace }}
+      - name: "[Backend] Wait for Backend Setup"
+        run: sleep 5
       - name: "[Frontend] Checkout code"
         uses: actions/checkout@v2
         with:
@@ -79,7 +91,13 @@ jobs:
 
       - name: "[Testing] Run Chrome Robot Framework Tests"
         run: |
-          robot -v BROWSER:chrome --outputdir results/ tests/test.robot
+          for file in tests/*.robot; do
+            if [ -f "$file" ]; then
+              echo "Result of $file"
+              robot -v BROWSER:chrome --outputdir results/ $file
+              echo "-----------------------------------"
+            fi
+          done
         working-directory: ${{ github.workspace }}
       # - name: Install Firefox
       #   uses: browser-actions/setup-firefox@latest
@@ -92,6 +110,7 @@ jobs:
       #     robot -v BROWSER:firefox tests/test.robot
       #   working-directory: ${{ github.workspace }}
       - name: "[Testing] Upload Selenium Artifacts"
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: selenium-artifacts
