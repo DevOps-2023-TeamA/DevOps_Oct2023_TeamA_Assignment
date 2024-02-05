@@ -8,21 +8,21 @@ window.onload = () => {
         // Define outputHTML based on role
         if (sessionStorage.getItem("Role") === "Administrator") {
             outputHTML = `
-                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="records-post.html">
+                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="createentry.html">
                     <i class="mdi mdi-text-box-plus-outline"></i> Create Records
                 </a>
                 <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="accounts-management.html">
                     <i class="mdi mdi-account-edit-outline"></i> Modify Accounts
                 </a>
-                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="records-get.html">
+                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="queryentryform.html">
                     <i class="mdi mdi-text-box-search-outline"></i> Query Records
                 </a>`
         } else if (sessionStorage.getItem("Role") === "User") {
             outputHTML = `
-                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="records-post.html">
+                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="createentry.html">
                     <i class="mdi mdi-text-box-plus-outline"></i> Create Records
                 </a>
-                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="records-get.html">
+                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="queryentryform.html">
                     <i class="mdi mdi-text-box-search-outline"></i> Query Records
                 </a>`
         }
