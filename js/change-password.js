@@ -29,7 +29,7 @@ async function changePassword(password) {
 
     try {
         // Send request to server
-        const response = await fetch(`http://localhost:8002/api/accounts/modify-password/${localStorage.getItem("tempID")}`, requestOptions);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/modify-password/${localStorage.getItem("tempID")}`, requestOptions);
 
         // Handle successful login
         if (response.status === 202) {

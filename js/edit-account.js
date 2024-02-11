@@ -44,7 +44,7 @@ async function editAccount() {
 
     try {
         // Send request to server
-        const response = await fetch(`http://localhost:8002/api/accounts/${localStorage.getItem("tempID")}`, requestOptions);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/${localStorage.getItem("tempID")}`, requestOptions);
         localStorage.removeItem("tempID")
 
         // Handle successful login

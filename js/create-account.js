@@ -20,7 +20,7 @@ async function createAccount() {
 
     try {
         // Send request to server
-        const response = await fetch('http://localhost:8002/api/accounts', requestOptions);
+        const response = await fetch(ACCOUNTS_SERVICE, requestOptions);
 
         // Handle successful login
         if (response.status === 201) {

@@ -15,7 +15,7 @@ async function readAccounts() {
     };
 
     try {
-        const response = await fetch('http://localhost:8002/api/accounts', requestOptions);
+        const response = await fetch(ACCOUNTS_SERVICE, requestOptions);
         
         // Parse response data
         const resData = await response.json();
@@ -66,7 +66,7 @@ async function approveButton(id, name){
 
     try {
         // Send request to server
-        const response = await fetch(`http://localhost:8002/api/accounts/approve/${id}`, requestOptions);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/approve/${id}`, requestOptions);
         // Handle successful login
         if (response.status === 202) {
             Swal.fire({
@@ -130,7 +130,7 @@ function deleteButton(id, name){
 
             try {
                 // Send request to server
-                const response = await fetch(`http://localhost:8002/api/accounts/${id}`, requestOptions);
+                const response = await fetch(`${ACCOUNTS_SERVICE}/${id}`, requestOptions);
                 // Handle successful login
                 if (response.status === 202) {
                     Swal.fire({
