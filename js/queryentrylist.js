@@ -1,4 +1,5 @@
 const accountAPIURL = "http://localhost:8002/api/accounts";
+const recordAPIURL = "http://localhost:8001/api/records";
 
 var returnButton = document.getElementById("return");
 
@@ -25,11 +26,42 @@ async function GetAccountName(userID) {
     }
 }
 
+// Function to get records by query
+async function GetRecords(year, keyword) {
+    try {
+        const response = await fetch(`${recordAPIURL}?ay=${year}&title=${keyword}`);
+        const records = await response.json();
+
+        // Return null if there are no matching records
+        if (String(records).startsWith("null")) {
+            return -1;
+        }
+        else {
+            return records;
+        }
+    }
+    catch (error) {
+        console.log("Error getting records:", error);
+        alert("Server Error. Try again.");
+        return null;
+    }
+}
+
 
 // Function to load data into the table
-function LoadEntries() {
-    // Retrieve the list of entries queried prior
-    var entries = JSON.parse(sessionStorage.getItem("QueriedEntries"));
+async function LoadEntries() {
+    // Retrieve the query inputs stored in session storage
+    const year = sessionStorage.getItem("QueryYear");
+    const keyword = sessionStorage.getItem("QueryKeyword");
+
+    // Retrieve the queried records from database
+    var entries = await GetRecords(year, keyword);
+
+    console.log(typeof entries);
+
+    // Sort the entries by title alphabetically
+    entries.sort((a, b) => a.Title.localeCompare(b.Title));
+
 
     var tableBody = document.getElementById('entryTableBody');
 
@@ -94,5 +126,7 @@ function LoadEntries() {
     });
 }
 
-
-LoadEntries();
+// Load in the queried entries when the window has loaded
+window.onload = async function () {
+    await LoadEntries();
+};

@@ -75,8 +75,9 @@ async function GetRecords(year, keyword) {
                                 queryForm.classList.remove("was-validated");
                             }
                             else if (records != null) {
-                                // Store the records in session storage to be displayed in list page
-                                sessionStorage.setItem("QueriedEntries", JSON.stringify(records));
+                                // Store the query inputs in session storage to be called in list page
+                                sessionStorage.setItem("QueryYear", year.value);
+                                sessionStorage.setItem("QueryKeyword", keyword.value);
 
                                 // Redirect to display page
                                 window.location.href = "queryentrylist.html";

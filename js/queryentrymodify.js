@@ -61,6 +61,7 @@ async function LoadData() {
     // Get account username from ID
     var entryUsername = await GetAccountUsername(entryData.AccountID);
 
+    // Populate Input fields with entry data
     if (entryUsername != null) {
         var entryForm = document.getElementById("entryForm");
         entryForm.querySelector('input[name="name"]').value = entryUsername;
@@ -124,16 +125,27 @@ async function UpdateRecord(record) {
             body: JSON.stringify(record),
         });
 
-        // Check response status from API
-        if (response.status == 202) {
-            // Inform user and redirect back to query list page
-            alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
+        // Get the response body
+        const data = await response.text();
 
+        if (data.trim() == "Record ID does not exist") {
+            alert("There were no changes made to your entry.\n Click OK to be redirected back to the query list page");
             window.location.href = "queryentrylist.html";
         }
         else {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            // Check response status from API
+            if (response.status == 202) {
+                // Inform user and redirect back to query list page
+                alert("Your Capstone entry has been successfully updated.\nClick OK to be redirected back to the query list page.")
+
+                window.location.href = "queryentrylist.html";
+            }
+            else {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
         }
+
+
     }
     catch (error) {
         console.log("Error creating record:", error);
@@ -201,7 +213,7 @@ async function UpdateRecord(record) {
                             else if (accountID != null) {
                                 // Create a variable to store the form values
                                 var newRecord = {
-                                    "AccountID": accountID,
+                                    "AccountID": Number(accountID),
                                     "ContactRole": formData.get("roleRadio"),
                                     "StudentCount": Number(formData.get("noOfStudents")),
                                     "AcadYear": formData.get("year"),
