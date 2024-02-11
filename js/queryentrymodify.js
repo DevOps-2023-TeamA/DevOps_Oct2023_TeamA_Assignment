@@ -65,13 +65,18 @@ async function LoadData() {
     if (entryUsername != null) {
         var entryForm = document.getElementById("entryForm");
         entryForm.querySelector('input[name="name"]').value = entryUsername;
-        entryForm.querySelector('input[name="roleRadio"]').value = entryData.ContactRole;
         entryForm.querySelector('input[name="noOfStudents"]').value = entryData.StudentCount;
         entryForm.querySelector('input[name="year"]').value = entryData.AcadYear;
         entryForm.querySelector('input[name="title"]').value = entryData.Title;
         entryForm.querySelector('input[name="company"]').value = entryData.CompanyName;
         entryForm.querySelector('input[name="companyPoc"]').value = entryData.CompanyPOC;
         entryForm.querySelector('textarea[name="description"]').value = entryData.Description;
+        if (entryData.ContactRole == "Staff") {
+            entryForm.querySelector('input[type="radio"][value="Staff"]').checked = true;
+        }
+        else if (entryData.ContactRole == "Student") {
+            entryForm.querySelector('input[type="radio"][value="Student"]').checked = true;
+        }
     }
     else {
         windows.location.href = "queryentrylist.html";
