@@ -19,7 +19,7 @@ async function sendAuthRequest() {
 
     try {
         // Send request to server
-        const response = await fetch('http://localhost:8000/api/auth', requestOptions);
+        const response = await fetch(AUTH_SERVICE, requestOptions);
 
         // Handle successful login
         if (response.status === 202) {
