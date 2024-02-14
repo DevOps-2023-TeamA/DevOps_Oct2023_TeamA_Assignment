@@ -1,21 +1,21 @@
 const accountAPIURL = "http://localhost:8002/api/accounts";
 const recordAPIURL = "http://localhost:8001/api/records";
 
-
-var cancelButton = document.getElementById("cancel");
-
-// Handle Cancel/Return button
-if (cancelButton) {
-    cancelButton.addEventListener("click", function () {
-        window.location.href = "queryentrylist.html";
-    });
-}
-
 // Load data as soon as page renders
 document.addEventListener("DOMContentLoaded", async function () {
     await LoadData();
 });
 
+
+var cancelButton = document.getElementById("cancel");
+var deleteButton = document.getElementById("delete");
+
+// Handle Cancel button
+if (cancelButton) {
+    cancelButton.addEventListener("click", function () {
+        window.location.href = "queryentrylist.html";
+    });
+}
 
 // Get role from session to modify form 
 const userRole = sessionStorage.getItem("Role");
@@ -23,7 +23,59 @@ const userRole = sessionStorage.getItem("Role");
 // Get the entry from session storage
 var entryData = JSON.parse(sessionStorage.getItem("SelectedEntry"));
 
-console.log(entryData.ID);
+
+// Handle Delete Button
+if (deleteButton) {
+    if (userRole == "User") {
+        var deleteButtonContainer = deleteButton.parentNode;
+        deleteButton.remove();
+        deleteButtonContainer.remove();
+    }
+    else {
+        deleteButton.addEventListener("click", function () {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Are you sure you want to delete this record?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                confirmButtonClass: "btn btn-success mt-2",
+                cancelButtonClass: "btn btn-danger ms-2 mt-2",
+                buttonsStyling: !1,
+                showLoaderOnConfirm: true,
+                preConfirm: async () => {
+                    if (await DeleteRecord(entryData.ID) == true) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The record has been deleted.",
+                            icon: "success",
+                            confirmButtonColor: "#5156be"
+                        }).then(() => {
+                            window.location.href = "queryentrylist.html";
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "question",
+                            title: "Error",
+                            text: "There was an error deleting the record. Please try again."
+                        })
+                    }
+                }
+            }).then((option) => {
+                if (option.value != true) {
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "Record deletion cancelled.",
+                        icon: "error",
+                        confirmButtonColor: "#5156be"
+                    })
+                }
+            })
+        })
+    }
+}
 
 // Check if user is administrator, normal user and owner of the entry, normal user and not owner of the entry
 if (userRole === "User") {
@@ -155,6 +207,34 @@ async function UpdateRecord(record) {
     catch (error) {
         console.log("Error creating record:", error);
         alert("Server Error. Try again.");
+    }
+}
+
+// Function to call api and delete record
+async function DeleteRecord(recordID) {
+    try {
+        const response = await fetch(`${recordAPIURL}/${recordID}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        // Get the response body
+        const data = await response.text();
+        console.log("DATA: ", data);
+        console.log("ID: ", data.trim().split(" ")[-1]);
+
+        if (data.trim() == "Unable to delete user") {
+            return false;
+        }
+        else if (data.trim() == `User deleted for ID: ${recordID}`) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        return false;
     }
 }
 
