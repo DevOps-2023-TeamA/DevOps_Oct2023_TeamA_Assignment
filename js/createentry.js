@@ -47,11 +47,11 @@ async function CreateRecord(record) {
     });
 
     // Check response status from API
-    if (response.status == 202) {
+    if (response.status == 201) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
 
-      window.location.href = "index.html";                    // NEED TO CHANGE THIS TO THE HOME PAGE HTML URL AFTER THE HOME PAGE IS DONE
+      window.location.href = "index.html";
     }
     else {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -123,7 +123,7 @@ async function CreateRecord(record) {
               else if (accountID != null) {
                 // Create a variable to store the form values
                 var newRecord = {
-                  "AccountID": accountID,
+                  "AccountID": Number(accountID),
                   "ContactRole": formData.get("roleRadio"),
                   "StudentCount": Number(formData.get("noOfStudents")),
                   "AcadYear": formData.get("year"),

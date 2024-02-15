@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TSA Office Records System</title>
+
+    <link rel="stylesheet" href="assets/css/preloader.css" type="text/css" />
+    <link href="assets/css/bootstrap.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="./global.css">
+</head>
+
+<body>
+    <div id="layout-wrapper">
+        <!--Header-->
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo-txt">
+                            TSAO Capstone Records
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <a class="btn btn-primary waves-effect waves-light" id="logoutButton">
+                        <i class="mdi mdi-logout"></i> Log Out
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!--Page Title-->
+        <div class="page-content">
+            <h1 class="header">
+                Capstone Entry Query
+            </h1>
+        </div>
+
+
+        <!--Form Container-->
+        <form id="query-entry" novalidate>
+            <div class="mb-5 d-flex justify-content-center">
+                <div class="col-sm-5 d-flex justify-content-center flex-column">
+                    <div class="row d-flex justify-content-center">
+                        <!--Left side inputs-->
+                        <div class="col-lg-6">
+                            <div class="col-lg-15">
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">By Academic Year</label>
+                                        <input class="form-control" type="text" placeholder="e.g. 2023/24"
+                                            pattern="\d{4}/\d{2}" maxlength="7" minlength="7" name="year" id="year"
+                                            required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid year.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row d-flex justify-content-between">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">By Keyword</label>
+                                        <input class="form-control" type="text" placeholder="e.g. Quantum"
+                                            name="keyword" id="keyword" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a keyword.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Action buttons-->
+                    <div class="row-lg-5 mt-4 d-flex justify-content-evenly">
+                        <div class="col-sm-1 d-flex justify-content-center align-items-center">
+                            <button class="btn btn-success btn-lg" type="submit" id="search">Search</button>
+                        </div>
+                        <div class="col-sm-1 d-flex justify-content-center align-items-center">
+                            <div class="btn btn-danger btn-lg" id="cancel">Cancel</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </form>
+
+    </div>
+
+    <!--Javascript-->
+    <script src="./js/paths.js"></script>
+    <script src="./js/queryentryform.js"></script>
+    <script src="./js/logout.js"></script>
+</body>
+
+</html>
