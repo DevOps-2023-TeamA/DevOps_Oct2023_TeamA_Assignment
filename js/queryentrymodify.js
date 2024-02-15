@@ -1,6 +1,3 @@
-const accountAPIURL = "http://localhost:8002/api/accounts";
-const recordAPIURL = "http://localhost:8001/api/records";
-
 // Load data as soon as page renders
 document.addEventListener("DOMContentLoaded", async function () {
     await LoadData();
@@ -140,7 +137,7 @@ async function LoadData() {
 // Function to get AccountID of entered username
 async function GetAccountUsername(selectedID) {
     try {
-        const response = await fetch(`${accountAPIURL}/${selectedID}`);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/${selectedID}`);
         const selectedAccount = await response.json();
         return selectedAccount.Username;
     }
@@ -155,7 +152,7 @@ async function GetAccountUsername(selectedID) {
 // Function to get AccountID of entered username
 async function GetAccountID(selectedUsername) {
     try {
-        const response = await fetch(`${accountAPIURL}/retrieve/${selectedUsername}`);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/retrieve/${selectedUsername}`);
         const accountID = (await response.text()).trim();
 
         if (accountID.includes("Account has not been approved OR Account has been deleted")) {
@@ -176,7 +173,7 @@ async function GetAccountID(selectedUsername) {
 async function UpdateRecord(record) {
     try {
         console.log("String: ", JSON.stringify(record))
-        const response = await fetch(`${recordAPIURL}/${entryData.ID}`, {
+        const response = await fetch(`${RECORDS_SERVICE}/${entryData.ID}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(record),
@@ -213,7 +210,7 @@ async function UpdateRecord(record) {
 // Function to call api and delete record
 async function DeleteRecord(recordID) {
     try {
-        const response = await fetch(`${recordAPIURL}/${recordID}`, {
+        const response = await fetch(`${RECORDS_SERVICE}/${recordID}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         });

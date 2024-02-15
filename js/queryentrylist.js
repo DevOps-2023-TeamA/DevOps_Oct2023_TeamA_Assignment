@@ -1,6 +1,3 @@
-const accountAPIURL = "http://localhost:8002/api/accounts";
-const recordAPIURL = "http://localhost:8001/api/records";
-
 var returnButton = document.getElementById("return");
 
 // Handle cancel of creation
@@ -14,7 +11,7 @@ if (returnButton) {
 // Function to get records by query
 async function GetAccountName(userID) {
     try {
-        const response = await fetch(`${accountAPIURL}/${userID}`);
+        const response = await fetch(`${ACCOUNTS_SERVICE}/${userID}`);
         const account = await response.json();
 
         return account.Name;
@@ -29,7 +26,7 @@ async function GetAccountName(userID) {
 // Function to get records by query
 async function GetRecords(year, keyword) {
     try {
-        const response = await fetch(`${recordAPIURL}?ay=${year}&title=${keyword}`);
+        const response = await fetch(`${RECORDS_SERVICE}?ay=${year}&title=${keyword}`);
         const records = await response.json();
 
         // Return null if there are no matching records

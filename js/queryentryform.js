@@ -1,5 +1,3 @@
-const recordAPIURL = "http://localhost:8001/api/records";
-
 var cancelButton = document.getElementById("cancel");
 
 // Handle cancel of creation
@@ -13,7 +11,7 @@ if (cancelButton) {
 // Function to get records by query
 async function GetRecords(year, keyword) {
     try {
-        const response = await fetch(`${recordAPIURL}?ay=${year}&title=${keyword}`);
+        const response = await fetch(`${RECORDS_SERVICE}?ay=${year}&title=${keyword}`);
         const records = await response.json();
 
         // Return null if there are no matching records
