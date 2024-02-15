@@ -29,6 +29,9 @@ window.onload = () => {
         // Insert role-specific buttons
         document.getElementById("roleButtons").innerHTML = outputHTML
     }
+    else {
+        document.getElementById("logoutButton").innerHTML = `<i class="mdi mdi-login"></i> Log In`
+    }
 }
 
 // Function to get cookie value
