@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>TSA Office Records Systems</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <!-- preloader css -->
+        <link rel="stylesheet" href="assets/css/preloader.min.css" type="text/css" />
+
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body>
+        <div id="layout-wrapper">
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <div class="navbar-brand-box">
+                            <a href="index.html" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="assets/images/logo-sm.svg" alt="" height="24">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">TSAO Capstone Records</span>
+                                </span>
+                            </a>
+
+                            <a href="index.html" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="assets/images/logo-sm.svg" alt="" height="24">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">TSAO Capstone Records</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <a class="btn btn-primary waves-effect waves-light" id="logoutButton">
+                            <i class="mdi mdi-logout"></i> Log Out
+                        </a>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="container-fluid">
+                <div class="page-content">
+                    <div class="row g-0">
+                        <div class="col-xxl-3 col-lg-3 col-md-3"></div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6">
+                            <div class="w-100">
+                                <div class="d-flex flex-column h-100">
+                                    <div class="auth-content my-auto">
+                                        <div class="text-center">
+                                            <h2 class="mb-0">Edit Account</h2>
+                                        </div>
+                                        <form class="mt-4 pt-2" action="index.html">
+                                            <div class="mb-3">
+                                                <label class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="name" placeholder="Enter name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                                <p class="text-danger" id="error-message"></p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Role</label>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-soft-primary dropdown-toggle" type="button" id="role" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="#" onclick="selectRole('User')">User</a>
+                                                        <a class="dropdown-item" href="#" onclick="selectRole('Administrator')">Administrator</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xxl-6 col-lg-6 col-md-6 col-6">
+                                                    <button id="editAccButton" class="btn btn-primary w-100 waves-effect waves-light" type="submit">
+                                                        <i class="mdi mdi-account-edit-outline"></i> Edit account information
+                                                    </button>
+                                                </div>
+                                                <div class="col-xxl-6 col-lg-6 col-md-6 col-6">
+                                                    <button id="cancelButton" class="btn btn-danger w-100 waves-effect waves-light" type="submit">
+                                                        <i class="mdi mdi-cancel"></i> Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="mt-4 mt-md-5 text-center">
+                                        <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> DevOps-2023-TeamA</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-lg-3 col-md-3"></div>
+                        <!-- end col -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+        <script src="assets/libs/feather-icons/feather.min.js"></script>
+        <!-- pace js -->
+        <script src="assets/libs/pace-js/pace.min.js"></script>
+        <!-- password addon init -->
+        <script src="assets/js/pages/pass-addon.init.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script src="./js/paths.js"></script>
+        <script src="./js/logout.js"></script>
+        <script src="./js/edit-account.js"></script>
+    </body>
+</html>

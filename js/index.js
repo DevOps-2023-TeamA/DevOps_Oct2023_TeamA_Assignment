@@ -11,7 +11,7 @@ window.onload = () => {
                 <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="createentry.html">
                     <i class="mdi mdi-text-box-plus-outline"></i> Create Records
                 </a>
-                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="accounts-put.html">
+                <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="accounts-management.html">
                     <i class="mdi mdi-account-edit-outline"></i> Modify Accounts
                 </a>
                 <a type="button" class="btn btn-primary waves-effect waves-light" style="margin: 0 20px;" href="queryentryform.html">

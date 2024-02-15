@@ -19,30 +19,36 @@ async function sendAuthRequest() {
 
     try {
         // Send request to server
-        const response = await fetch('http://localhost:8000/api/auth', requestOptions);
+        const response = await fetch(AUTH_SERVICE, requestOptions);
 
         // Handle successful login
         if (response.status === 202) {
-            // Clear error message
-            document.getElementById("error-message").innerHTML = '';
-            // Show success message
-            alert('Login successful.');
-
             // Parse response data
             const resData = await response.json();
             console.log('Response:', resData);
 
-            // Set JWT token cookie
-            setCookie('jwtToken', resData["Token"], 30)
+            if (resData["IsApproved"] === false) {       // Handle unapproved accounts
+                const outputHTML = 'Error: Your account has not been approved. Please contact the admin ';
+                document.getElementById("error-message").innerHTML = outputHTML;
+            } else {
+                // Clear error message
+                document.getElementById("error-message").innerHTML = '';
+                // Show success message
+                alert('Login successful.');
 
-            // Store user data in session storage
-            sessionStorage.setItem("ID", resData["ID"])
-            sessionStorage.setItem("Username", resData["Username"])
-            sessionStorage.setItem("Name", resData["Name"])
-            sessionStorage.setItem("Role", resData["Role"])
+                // Set JWT token cookie
+                setCookie('jwtToken',resData["Token"],30)
+                
+                // Store user data in session storage
+                sessionStorage.setItem("ID", resData["ID"])
+                sessionStorage.setItem("Name", resData["Name"])
+                sessionStorage.setItem("Username", resData["Username"])
+                sessionStorage.setItem("Role", resData["Role"])
 
-            // Redirect to homepage
-            window.location.href = "../index.html"
+
+                // Redirect to homepage
+                window.location.href = "../index.html"
+            }
         } else if (response.status === 401) {               // Handle incorrect username or password
             const outputHTML = 'Error: Incorrect username or password! Please try again.';
             document.getElementById("error-message").innerHTML = outputHTML;
@@ -85,4 +91,9 @@ function getCookie(name) {
 document.getElementById('loginButton').addEventListener('click', function (event) {
     event.preventDefault();
     sendAuthRequest();
+});
+
+document.getElementById('newAccountButton').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = "../create-account.html";
 });
