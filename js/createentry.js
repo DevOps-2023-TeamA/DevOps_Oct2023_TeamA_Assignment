@@ -47,7 +47,7 @@ async function CreateRecord(record) {
     });
 
     // Check response status from API
-    if (response.status == 202) {
+    if (response.status == 201) {
       // Inform user and redirect to main page
       alert("Your Capstone entry has been successfully created.\nClick OK to be redirected back to the main page.")
 
