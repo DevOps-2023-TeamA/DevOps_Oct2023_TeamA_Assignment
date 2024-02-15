@@ -1,8 +1,13 @@
-name: Discord Notification
+name: Deployment
 
 on:
   release:
     types: [published]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   notify-discord:
@@ -33,3 +38,24 @@ jobs:
           cd tsao-pipeline-emails
           echo "${{ github.event.release.body }}" > changelog.txt
           python main.py $SENDGRID_TOKEN $SENDGRID_EMAILS
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Replace paths
+        run: |
+          rm js/paths.js
+          mv js/paths@deploy.js js/paths.js
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
